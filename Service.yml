@@ -1,0 +1,17 @@
+# Here be a service
+---
+name: RPC.EventService
+version: 1.0.0
+description: Raise events on SNS Bus.
+
+main: src/index.js
+
+configurations:
+  - name: service
+    key: /config/services/EventService
+    # notifyArn
+
+  - name: shared
+    key: /config/shared
+    # region
+    # logLevel
