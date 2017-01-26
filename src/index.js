@@ -31,6 +31,8 @@ module.exports = function RPC_ApprovalService(App) {
 
         var params = {
             logLevel: conf.shared.logLevel,
+            notifyArn: conf.service.notifyArn,
+            snsClient: new AWS.SNS({ region: conf.shared.region })
         };
 
         bus.use(services.RaiseEventPlugin, params);
