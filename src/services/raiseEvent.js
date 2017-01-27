@@ -114,16 +114,11 @@ module.exports = function RaiseEventPlugin(opts) {
             type: state.type,
             job_id: state.jobId,
             timestamp: state.timestamp,
-            person: state.person,
+            person: state.get('person', null),
             details: {}
         });
 
-        events[state.type].pack(console, state, (err, _state) => {
-            if(!err)
-                console.debug("PAYLOAD:\n", state.payload);
-
-            done(err, _state);
-        });
+        events[state.type].pack(console, state, done);
     }
 
     function raiseEvent(console, state, done) {
@@ -131,15 +126,16 @@ module.exports = function RaiseEventPlugin(opts) {
         console.info("Publish Event on Exchange");
         console.debug("Target ARN: " + notifyArn);
 
-        var params;
+        var params, message;
 
         try {
+            message = JSON.stringify(state.payload);
+            console.debug("PAYLOAD:\n", message);
+
             params = {
                 TopicArn: notifyArn,
                 MessageStructure: 'json',
-                Message: JSON.stringify({
-                    "default": JSON.stringify(state.payload),
-                })
+                Message: JSON.stringify({ "default": message })
             };
         } catch(ex) {
             return done({
