@@ -30,7 +30,7 @@ module.exports = function RaiseEventPlugin(opts) {
         }
 
         params.tasks = [
-            tryStep(shared.getAuthorityFromToken, 'person'),
+            tryStep(shared.getAuthorityFromToken),
             validate,
             packageEvent,
             raiseEvent,
@@ -114,6 +114,7 @@ module.exports = function RaiseEventPlugin(opts) {
             type: state.type,
             job_id: state.jobId,
             timestamp: state.timestamp,
+            person: state.person,
             details: {}
         });
 

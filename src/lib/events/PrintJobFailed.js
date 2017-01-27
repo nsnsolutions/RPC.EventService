@@ -14,23 +14,23 @@ module.exports = function(opts) {
 
     function validate(console, state, done) {
 
-        if(!state.has('status'))
+        if(!state.has('reason'))
             return done({ name: 'badRequest',
-                message: 'Missing required field: status' });
+                message: 'Missing required field: reason' });
 
-        else if(!state.has('status', String))
+        else if(!state.has('reason', String))
             return done({ name: 'badRequest',
-                message: 'Wrong type for field: status. Expected: String' });
+                message: 'Wrong type for field: reason. Expected String' });
 
-        else if(state.get('status') === "")
+        else if(state.get('reason') === "")
             return done({ name: 'badRequest',
-                message: 'Invalid value for field: status. Recieved Empty String.' });
+                message: 'Invalid value for field: reason. Recieved Empty String.' });
 
         done(null, state);
     }
 
     function pack(console, state, done) {
-        state.set('payload.details.status', state.status);
+        state.set('payload.details.reason', state.reason);
         done(null, state);
     }
 };
