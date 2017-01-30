@@ -114,7 +114,11 @@ module.exports = function RaiseEventPlugin(opts) {
             type: state.type,
             job_id: state.jobId,
             timestamp: state.timestamp,
+            token: state.get('token', null),
+
+            // TODO: Remove this after demo.
             person: state.get('person', null),
+
             details: {}
         });
 
